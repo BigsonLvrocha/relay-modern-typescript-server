@@ -5,5 +5,15 @@
   "main": "src/index.js",
   "repository": "git@github.com:BigsonLvrocha/relay-modern-typescript-server.git",
   "author": "Luiz Victor Linhares Rocha <luiz@sigalei.com.br>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^12.7.5",
+    "sequelize": "^5.18.4"
+  },
+  "devDependencies": {
+    "@types/sequelize": "^4.28.4",
+    "@types/validator": "types/validator",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.6.3"
+  }
 }
