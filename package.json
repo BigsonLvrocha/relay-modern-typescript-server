@@ -1,0 +1,9 @@
+{
+  "name": "relay-modern-typescript-server",
+  "version": "1.0.0",
+  "description": "Server for the sibelius' modern relay course",
+  "main": "src/index.js",
+  "repository": "git@github.com:BigsonLvrocha/relay-modern-typescript-server.git",
+  "author": "Luiz Victor Linhares Rocha <luiz@sigalei.com.br>",
+  "license": "MIT"
+}
