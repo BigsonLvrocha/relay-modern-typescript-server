@@ -1,0 +1,8 @@
+// tslint:disable-next-line: no-var-requires
+const path = require("path");
+
+module.exports = {
+  config: path.join("src", "config", "sequelize.ts"),
+  "models-path": path.join("src", "models"),
+  "seeders-path": path.resolve("src", "__test__", "seeders")
+};
