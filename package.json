@@ -7,7 +7,9 @@
   "author": "Luiz Victor Linhares Rocha <luiz@sigalei.com.br>",
   "license": "MIT",
   "dependencies": {
-    "sequelize": "^5.18.4"
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.18.4",
+    "sequelize-typescript": "^1.0.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",
