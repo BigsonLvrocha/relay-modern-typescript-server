@@ -58,4 +58,37 @@ export class TestClient {
       }
     });
   }
+
+  async changePassword(
+    oldPassword: string,
+    newPassword: string,
+    token: string
+  ) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        "x-access-token": `Bearer ${token}`
+      },
+      body: {
+        query: `
+        mutation {
+          UserChangePassword(
+            input: {
+              oldPassword: "${oldPassword}",
+              password: "${newPassword}"
+            }
+          ) {
+            me {
+              id
+              name
+              email
+              _id
+            }
+            error
+            clientMutationId
+          }
+        }`
+      }
+    });
+  }
 }
