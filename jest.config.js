@@ -1,4 +1,5 @@
 module.exports = {
+  globalSetup: "./src/__test__/setup/setup.ts",
   testEnvironment: "node",
   transform: {
     "^.+\\.tsx?$": "ts-jest"
