@@ -12,9 +12,7 @@ const options: SequelizeOptions = {
   host: process.env.DB_HOSTNAME || "127.0.0.1",
   port: Number.parseInt(process.env.DB_PORT || "5432", 10),
   dialect: (process.env.DB_DIALECT as Dialect) || "postgres",
-  logging:
-    (process.env.DB_LOGGING as string) === "true" ||
-    process.env.NODE_ENV !== "test"
+  logging: process.env.NODE_ENV !== "test" ? console.log : false
 };
 
 export default options;
