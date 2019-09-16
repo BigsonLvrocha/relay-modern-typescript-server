@@ -1,6 +1,7 @@
 import { GraphQLServer } from "graphql-yoga";
 import { genSchema } from "./modules";
 import { sequelize } from "./services/sequelize";
+import { verifyJwt } from "./middleware/jwt";
 
 class Server extends GraphQLServer {
   constructor() {
@@ -11,6 +12,16 @@ class Server extends GraphQLServer {
         sequelize
       }
     });
+    this.middleware();
+    this.routes();
+  }
+
+  middleware() {
+    this.express.use(verifyJwt);
+  }
+
+  routes() {
+    //
   }
 }
 
