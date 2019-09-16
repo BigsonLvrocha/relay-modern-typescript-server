@@ -7,19 +7,26 @@
   "author": "Luiz Victor Linhares Rocha <luiz@sigalei.com.br>",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "graphql": "^14.5.5",
     "graphql-yoga": "^1.18.3",
     "pg": "^7.12.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.18.4",
-    "sequelize-typescript": "^1.0.0"
+    "sequelize-typescript": "^1.0.0",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.27",
+    "@types/faker": "^4.1.5",
+    "@types/jest": "^24.0.18",
     "@types/node": "^12.7.5",
     "@types/sequelize": "^4.28.4",
+    "@types/uuid": "^3.4.5",
     "@types/validator": "^10.11.3",
     "dotenv": "^8.1.0",
+    "faker": "^4.1.0",
     "gql2ts": "^1.10.1",
     "jest": "^24.9.0",
     "sequelize-cli": "^5.5.1",
@@ -30,6 +37,8 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "gen-schema-types": "gql2ts -o ./src/types/schemaTypes.d.ts ./src/modules/schema.graphql"
+    "gen-schema-types": "gql2ts -o ./src/types/schemaTypes.d.ts ./src/modules/schema.graphql",
+    "start": "ts-node src/index.ts",
+    "test": "NODE_ENV=test jest --forceExit"
   }
 }
