@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize-typescript";
 
 export interface Context {
   sequelize: Sequelize;
+  request: Request;
 }
 
 export type Resolver = (
