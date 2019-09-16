@@ -3,6 +3,9 @@ import * as jwt from "jsonwebtoken";
 import { sequelize } from "../../services/sequelize";
 import { TestClient } from "../util/testClient";
 import { User } from "../../models/User.model";
+import * as tp from "typed-promisify";
+
+const verify = tp.promisify(jwt.verify);
 
 describe("user registration", () => {
   it("registers user with email", async () => {
@@ -18,7 +21,7 @@ describe("user registration", () => {
     expect(response.data).toHaveProperty("UserRegisterWithEmail");
     expect(response.data.UserRegisterWithEmail.error).toBeNull();
     expect(response.data.UserRegisterWithEmail.token).not.toBeNull();
-    const { userId } = (await jwt.verify(
+    const { userId } = (await verify(
       response.data.UserRegisterWithEmail.token,
       process.env.APP_SECRET as string
     )) as any;

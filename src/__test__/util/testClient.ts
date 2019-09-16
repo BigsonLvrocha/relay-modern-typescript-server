@@ -37,4 +37,25 @@ export class TestClient {
       }
     });
   }
+
+  async login(email: string, password: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        mutation {
+          UserLoginWithEmail(
+            input: {
+              email: "${email}",
+              password: "${password}"
+            }
+          ) {
+            token
+            error
+            clientMutationId
+          }
+        }`
+      }
+    });
+  }
 }
