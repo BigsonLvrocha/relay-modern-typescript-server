@@ -10,7 +10,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "glob": "^7.1.4",
-    "graphql": "^14.5.5",
+    "graphql": "14.5.5",
     "graphql-tools": "^4.0.5",
     "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.5.1",
@@ -19,6 +19,7 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.18.4",
     "sequelize-typescript": "^1.0.0",
+    "typed-promisify": "^0.4.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@types/jest": "^24.0.18",
     "@types/jsonwebtoken": "^8.3.3",
     "@types/node": "^12.7.5",
+    "@types/request-promise": "^4.1.44",
     "@types/sequelize": "^4.28.4",
     "@types/uuid": "^3.4.5",
     "@types/validator": "^10.11.3",
@@ -36,16 +38,19 @@
     "faker": "^4.1.0",
     "gql2ts": "^1.10.1",
     "jest": "^24.9.0",
+    "nodemon": "^1.19.2",
+    "request-promise": "^4.2.4",
     "sequelize-cli": "^5.5.1",
     "ts-jest": "^24.1.0",
-    "ts-node": "^8.3.0",
+    "ts-node": "8.3.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "request": "^2.88.0"
   },
   "scripts": {
     "gen-schema-types": "gql2ts -o ./src/types/schemaTypes.d.ts ./src/modules/schema.graphql",
-    "start": "ts-node --files src/index.ts",
+    "start": "nodemon --files src/index.ts",
     "test": "NODE_ENV=test NODE_TS_FILES=true jest --forceExit"
   }
 }
