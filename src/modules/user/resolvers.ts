@@ -5,7 +5,7 @@ import {
   userResolver as user,
   usersResolver as users,
   meResolver as me
-} from "./user";
+} from "./queries";
 import { ResolverMap } from "../../types/graphql-utils";
 
 export const resolvers: ResolverMap = {
