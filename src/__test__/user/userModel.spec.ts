@@ -1,6 +1,6 @@
-import { sequelize } from "../services/sequelize";
+import { sequelize } from "../../services/sequelize";
 import * as faker from "faker";
-import { User } from "../models/User.model";
+import { User } from "../../models/User.model";
 
 const UserModel = sequelize.models.User;
 

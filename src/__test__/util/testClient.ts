@@ -110,6 +110,23 @@ export class TestClient {
           }
         `
       }
-    })
-  };
+    });
+  }
+
+  async user(id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        {
+          user(id: "${id}") {
+            _id
+            id
+            name
+            email
+          }
+        }`
+      }
+    });
+  }
 }

@@ -3,11 +3,20 @@ import { applyMiddleware } from "../../util/applyMiddleware";
 import { authGraphqlMiddleware } from "../middleware/auth";
 import { User } from "../../models/User.model";
 import { UserToIUser } from "../../util/typeMap";
+import { graphqIdToId } from "../../util/graphqlId";
 
 export const userResolver: Resolver = async (
   _,
-  {  }: GQL.IUserOnQueryArguments
-): Promise<GQL.IUser | null> => null;
+  { id: graphId }: GQL.IUserOnQueryArguments,
+  { sequelize }
+): Promise<GQL.IUser | null> => {
+  const id = graphqIdToId(graphId, "user");
+  const user = (await sequelize.models.User.findByPk(id)) as User;
+  if (!user) {
+    return null;
+  }
+  return UserToIUser(user);
+};
 
 export const meResolver: Resolver = applyMiddleware(
   authGraphqlMiddleware,

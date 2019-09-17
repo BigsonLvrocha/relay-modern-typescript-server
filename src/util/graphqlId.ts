@@ -3,5 +3,5 @@ export const idToGraphqlId = (id: string, prefix: string) => {
 };
 
 export const graphqIdToId = (id: string, prefix: string) => {
-  return id.substring(prefix.length);
+  return id.substring(prefix.length + 1);
 };
