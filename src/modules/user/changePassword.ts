@@ -1,28 +1,19 @@
 import { Resolver } from "../../types/graphql-utils";
-import { verifyJwt } from "../../util/verifyJwt";
 import * as bcrypt from "bcryptjs";
 import { User } from "../../models/User.model";
-import { invalidAuthentication } from "./errorMessages";
+import { invalidAuthentication } from "../middleware/errorMessages";
 import { UserToIUser } from "../../util/typeMap";
+import { applyMiddleware } from "../../util/applyMiddleware";
+import { authGraphqlMiddleware } from "../middleware/auth";
 
 const changePasswordResolver: Resolver = async (
   _,
   {
     input: { clientMutationId, oldPassword, password }
   }: GQL.IUserChangePasswordOnMutationArguments,
-  { request, sequelize }
+  { sequelize, userId }
 ): Promise<GQL.IUserChangePasswordPayload> => {
-  const jwt = await verifyJwt(request);
-  if (jwt === null) {
-    return {
-      __typename: "UserChangePasswordPayload",
-      clientMutationId: clientMutationId || null,
-      me: null,
-      error: invalidAuthentication
-    };
-  }
   const UserModel = sequelize.models.User;
-  const { userId } = jwt;
   const user = (await UserModel.findByPk(userId)) as User;
   if (!user) {
     return {
@@ -51,4 +42,4 @@ const changePasswordResolver: Resolver = async (
   };
 };
 
-export default changePasswordResolver;
+export default applyMiddleware(authGraphqlMiddleware, changePasswordResolver);
