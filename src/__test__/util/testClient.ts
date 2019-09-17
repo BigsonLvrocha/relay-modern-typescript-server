@@ -129,4 +129,54 @@ export class TestClient {
       }
     });
   }
+
+  async users(
+    after?: string | undefined,
+    first?: number | undefined,
+    before?: string | undefined,
+    last?: number | undefined,
+    search?: string | undefined
+  ) {
+    const query = `
+    {
+      users ${
+        after || first || before || last
+          ? `(
+        ${after ? `after: "${after}"` : ""}
+        ${first ? `first: ${first}` : ""}
+        ${before ? `before: "${before}"` : ""}
+        ${last ? `last: ${last}` : ""}
+        ${search ? `search: "${search}"` : ""}
+      )
+      `
+          : ""
+      }  {
+        count
+        totalCount
+        startCursorOffset
+        endCursorOffset
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        edges {
+          node {
+            id
+            _id
+            name
+            email
+          }
+          cursor
+        }
+      }
+    }`;
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query
+      }
+    });
+  }
 }
