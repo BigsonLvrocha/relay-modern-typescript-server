@@ -19,7 +19,8 @@ export type GraphqlMiddleware = (
   parent: any,
   args: any,
   context: Context,
-  info: any
+  info: any,
+  params: any | undefined
 ) => any;
 
 export interface ResolverMap {

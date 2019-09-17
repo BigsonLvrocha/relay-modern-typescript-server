@@ -91,4 +91,25 @@ export class TestClient {
       }
     });
   }
+
+  async me(token: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        "x-access-token": `Bearer ${token}`
+      },
+      body: {
+        query: `
+          {
+            me {
+              _id
+              id
+              name
+              email
+            }
+          }
+        `
+      }
+    })
+  };
 }
