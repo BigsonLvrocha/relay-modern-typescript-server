@@ -67,7 +67,7 @@ export class TestClient {
     return rp.post(this.url, {
       ...this.options,
       headers: {
-        "x-access-token": `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       },
       body: {
         query: `

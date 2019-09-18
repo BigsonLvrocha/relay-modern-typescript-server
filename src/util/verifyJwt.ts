@@ -5,7 +5,7 @@ import * as tp from "typed-promisify";
 const verify = tp.promisify(jwt.verify);
 
 export const verifyJwt = async (request: Request): Promise<any> => {
-  const tokenHeader = request.get("x-access-token");
+  const tokenHeader = request.get("Authorization");
   if (!tokenHeader) {
     return null;
   }
