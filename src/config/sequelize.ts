@@ -7,9 +7,9 @@ const options: SequelizeOptions = {
   password: process.env.DB_PASSWORD || undefined,
   database:
     process.env.NODE_ENV !== "test"
-      ? process.env.DB_DATABASE || undefined
+      ? process.env.DB_DATABASE || "relay_modern_development"
       : "relay_modern_test",
-  host: process.env.DB_HOSTNAME || "127.0.0.1",
+  host: process.env.DB_HOSTNAME || "db",
   port: Number.parseInt(process.env.DB_PORT || "5432", 10),
   dialect: (process.env.DB_DIALECT as Dialect) || "postgres",
   logging: process.env.NODE_ENV !== "test" ? console.log : false

@@ -1,0 +1,15 @@
+version: "3"
+services:
+  db:
+    image: postgres:alpine
+    ports:
+      - 127.0.0.1:5432:5432
+  web:
+    build: .
+    ports:
+      - 127.0.0.1:5555:5555
+    depends_on:
+      - db
+    volumes:
+      - "./serverInit.sh:/usr/local/bin/serverInit.sh"
+    command: serverInit.sh

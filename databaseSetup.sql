@@ -1,0 +1,2 @@
+CREATE DATABASE relay_modern_development
+CREATE DATABASE relay_modern_test
