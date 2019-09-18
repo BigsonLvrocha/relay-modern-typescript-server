@@ -7,11 +7,19 @@ export const authGraphqlMiddleware: GraphqlMiddleware = async (
   parent,
   args,
   context,
-  info
+  info,
+  params
 ) => {
+  let throwError = true;
+  if (params) {
+    throwError = params.throwError;
+  }
   const jwt = await verifyJwt(context.request);
   if (jwt === null) {
-    throw new Error(invalidAuthentication);
+    if (throwError) {
+      throw new Error(invalidAuthentication);
+    }
+    return resolver(parent, args, context, info);
   }
   const { userId } = jwt;
   return resolver(parent, args, { ...context, userId }, info);

@@ -91,4 +91,92 @@ export class TestClient {
       }
     });
   }
+
+  async me(token: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        "x-access-token": `Bearer ${token}`
+      },
+      body: {
+        query: `
+          {
+            me {
+              _id
+              id
+              name
+              email
+            }
+          }
+        `
+      }
+    });
+  }
+
+  async user(id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        {
+          user(id: "${id}") {
+            _id
+            id
+            name
+            email
+          }
+        }`
+      }
+    });
+  }
+
+  async users(
+    after?: string | undefined,
+    first?: number | undefined,
+    before?: string | undefined,
+    last?: number | undefined,
+    search?: string | undefined
+  ) {
+    const query = `
+    {
+      users ${
+        after || first || before || last
+          ? `(
+        ${after ? `after: "${after}"` : ""}
+        ${first ? `first: ${first}` : ""}
+        ${before ? `before: "${before}"` : ""}
+        ${last ? `last: ${last}` : ""}
+        ${search ? `search: "${search}"` : ""}
+      )
+      `
+          : ""
+      }  {
+        count
+        totalCount
+        startCursorOffset
+        endCursorOffset
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        edges {
+          node {
+            id
+            _id
+            name
+            email
+          }
+          cursor
+        }
+      }
+    }`;
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query
+      }
+    });
+  }
 }

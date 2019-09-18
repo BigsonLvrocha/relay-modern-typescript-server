@@ -1,6 +1,7 @@
 import { GraphQLServer } from "graphql-yoga";
 import { genSchema } from "./modules";
 import { sequelize } from "./services/sequelize";
+import { pubsub } from "./services/pubsub";
 class Server extends GraphQLServer {
   constructor() {
     const schema = genSchema();
@@ -8,7 +9,8 @@ class Server extends GraphQLServer {
       schema,
       context: ({ request }) => ({
         sequelize,
-        request
+        request,
+        pubsub
       })
     });
     this.middleware();
