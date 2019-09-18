@@ -20,8 +20,10 @@ const registerResolver: Resolver = async (
     password,
     name
   })) as User;
-  const token = (await sign({ userId: user._id }, process.env
-    .APP_SECRET as string)) as string;
+  const token = (await sign(
+    { userId: user._id },
+    process.env.APP_SECRET || "secret"
+  )) as string;
   const userAdded: GQL.IUserAddedPayload = {
     __typename: "UserAddedPayload",
     userEdge: UserToEdge(user)

@@ -26,8 +26,10 @@ const loginResolver: Resolver = async (
   }
   const valid = await bcrypt.compare(password, user.password);
   if (valid) {
-    const token = (await sign({ userId: user._id }, process.env
-      .APP_SECRET as string)) as string;
+    const token = (await sign(
+      { userId: user._id },
+      process.env.APP_SECRET || "secret"
+    )) as string;
     return {
       __typename: "UserLoginWithEmailPayload",
       token,
