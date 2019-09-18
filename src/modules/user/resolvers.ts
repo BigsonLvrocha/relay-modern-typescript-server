@@ -7,6 +7,7 @@ import {
   meResolver as me
 } from "./queries";
 import { ResolverMap } from "../../types/graphql-utils";
+import { userAddedResolver } from "./userAdded";
 
 export const resolvers: ResolverMap = {
   Mutation: {
@@ -18,5 +19,10 @@ export const resolvers: ResolverMap = {
     user,
     users,
     me
+  },
+  Subscription: {
+    UserAdded: {
+      subscribe: userAddedResolver
+    }
   }
 };

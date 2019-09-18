@@ -1,10 +1,12 @@
 import { Request } from "express";
 import { Sequelize } from "sequelize-typescript";
+import { PubSub } from "graphql-yoga";
 
 export interface Context {
   sequelize: Sequelize;
   request: Request;
   userId: string | undefined;
+  pubsub: PubSub;
 }
 
 export type Resolver = (
@@ -13,6 +15,10 @@ export type Resolver = (
   context: Context,
   info: any
 ) => any;
+
+export interface SubscriptionResolver {
+  subscribe: (parent: any, agrs: any, context: Context, info: any) => any;
+}
 
 export type GraphqlMiddleware = (
   resolver: Resolver,
@@ -25,6 +31,6 @@ export type GraphqlMiddleware = (
 
 export interface ResolverMap {
   [key: string]: {
-    [key: string]: Resolver;
+    [key: string]: Resolver | SubscriptionResolver;
   };
 }
