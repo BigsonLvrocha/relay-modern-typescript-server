@@ -53,6 +53,7 @@
   "scripts": {
     "gen-schema-types": "gql2ts -o ./src/types/schemaTypes.d.ts ./src/modules/schema.graphql",
     "start": "nodemon --files src/index.ts",
-    "test": "NODE_ENV=test NODE_TS_FILES=true jest --forceExit --runInBand"
+    "test": "NODE_ENV=test NODE_TS_FILES=true jest --forceExit --runInBand",
+    "build": "ts-node --files src/index.ts"
   }
 }
