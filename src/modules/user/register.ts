@@ -26,7 +26,6 @@ const registerResolver: Resolver = async (
     __typename: "UserAddedPayload",
     userEdge: UserToEdge(user)
   };
-  console.log(userAdded);
   pubsub.publish(userAddedChannelName, { UserAdded: userAdded });
   return {
     __typename: "UserRegisterWithEmailPayload",

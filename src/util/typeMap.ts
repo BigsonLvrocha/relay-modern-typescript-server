@@ -22,7 +22,7 @@ export const unbase64 = (b64: string): string =>
   Buffer.from(b64, "base64").toString("ascii");
 
 export const string2Cursor = (name: string, prefix: string) =>
-  base64(prefix + name);
+  prefix + base64(name);
 
 export const cursor2String = (cursor: string, prefix: string) =>
   unbase64(cursor.substring(prefix.length));
