@@ -15,14 +15,13 @@ export const UserToEdge = (user: User): GQL.IUserEdge => ({
   cursor: string2Cursor(user.name, "user-name-")
 });
 
-export const Post2IPost = (post: Post): Partial<GQL.IPost> => {
-  return {
-    _id: post._id,
-    id: idToGraphqlId(post._id, "post"),
-    title: post.title,
-    description: post.description
-  };
-};
+export const Post2IPost = (post: Post): Partial<GQL.IPost> => ({
+  _id: post._id,
+  id: idToGraphqlId(post._id, "post"),
+  title: post.title,
+  description: post.description,
+  authorId: post.authorId
+});
 
 export const base64 = (str: string): string =>
   Buffer.from(str, "ascii").toString("base64");
