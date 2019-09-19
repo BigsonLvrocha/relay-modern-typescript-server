@@ -1,6 +1,13 @@
-import { Table, Column, Model, BeforeCreate } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  BeforeCreate,
+  HasMany
+} from "sequelize-typescript";
 import * as uuid from "uuid/v4";
 import * as bcrypt from "bcryptjs";
+import { Post } from "./Post.model";
 
 @Table({
   tableName: "users",
@@ -21,4 +28,7 @@ export class User extends Model<User> {
   @Column email: string;
   @Column password: string;
   @Column active: boolean;
+
+  @HasMany(() => Post, "authorId")
+  posts: Post[];
 }

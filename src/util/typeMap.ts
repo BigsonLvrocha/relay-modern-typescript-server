@@ -1,5 +1,6 @@
 import { User } from "../models/User.model";
 import { idToGraphqlId } from "./graphqlId";
+import { Post } from "../models/Post.model";
 
 export const UserToIUser = (user: User): GQL.IUser => ({
   active: user.active,
@@ -12,6 +13,14 @@ export const UserToIUser = (user: User): GQL.IUser => ({
 export const UserToEdge = (user: User): GQL.IUserEdge => ({
   node: UserToIUser(user),
   cursor: string2Cursor(user.name, "user-name-")
+});
+
+export const Post2IPost = (post: Post): Partial<GQL.IPost> => ({
+  _id: post._id,
+  id: idToGraphqlId(post._id, "post"),
+  title: post.title,
+  description: post.description,
+  authorId: post.authorId
 });
 
 export const base64 = (str: string): string =>
