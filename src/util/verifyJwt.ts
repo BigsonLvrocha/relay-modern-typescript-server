@@ -10,5 +10,5 @@ export const verifyJwt = async (request: Request): Promise<any> => {
     return null;
   }
   const token = tokenHeader.substring(7);
-  return verify(token, process.env.APP_SECRET as string) as any;
+  return verify(token, process.env.APP_SECRET || "secret") as any;
 };
