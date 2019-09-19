@@ -202,4 +202,36 @@ export class TestClient {
       }
     });
   }
+
+  async UserCreatePost(title: string, description: string, token: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: {
+        query: `
+          mutation {
+            UserCreatePost(input: {
+              title: "${title}"
+              description: "${description}"
+            }) {
+              error
+              post {
+                id
+                _id
+                title
+                description
+                author {
+                  id
+                  _id
+                  name
+                  email
+                }
+              }
+            }
+          }`
+      }
+    });
+  }
 }
