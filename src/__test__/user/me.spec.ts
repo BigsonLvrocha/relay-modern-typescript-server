@@ -16,11 +16,11 @@ describe("me query", () => {
     const UserModel = sequelize.models.User;
     const email = faker.internet.email();
     const password = faker.internet.password();
-    const userName = faker.internet.userName();
+    const name = faker.internet.userName();
     const user = (await UserModel.create({
       email,
       password,
-      userName
+      name
     })) as User;
     const {
       data: {

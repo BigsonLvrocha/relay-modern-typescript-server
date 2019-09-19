@@ -12,5 +12,8 @@ export default async function setup() {
   process.env.TEST_HOST = `http://127.0.0.1:${port}`;
   console.log(process.env.TEST_HOST);
   const UserModel = sequelize.models.User;
-  await UserModel.truncate();
+  await UserModel.destroy({
+    truncate: true,
+    cascade: true
+  });
 }
