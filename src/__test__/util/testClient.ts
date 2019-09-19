@@ -179,4 +179,27 @@ export class TestClient {
       }
     });
   }
+
+  async post(id: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+        {
+          post(id: "${id}") {
+            _id
+            id
+            description
+            title
+            author {
+              id
+              _id
+              name
+              email
+            }
+          }
+        }`
+      }
+    });
+  }
 }
