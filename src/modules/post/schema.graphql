@@ -3,24 +3,26 @@ type Post implements Node {
   _id: String!
   title: String!
   description: String
+  authorId: String!
   author: User!
 }
 
 type Mutation {
-  UserAddPost(input: UserAddPostInput!): UserAddPostPayload
+  UserCreatePost(input: UserCreatePostInput!): UserCreatePostPayload
 }
 
 type Query {
   post(id: ID!): Post
 }
 
-input UserAddPostInput {
+input UserCreatePostInput {
   title: String!
-  descirption: String
+  description: String
   clientMutationId: String
 }
 
-type UserAddPostPayload {
+type UserCreatePostPayload {
   error: String
+  post: Post
   clientMutationId: String
 }

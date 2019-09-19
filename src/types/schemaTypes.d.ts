@@ -64,6 +64,7 @@ id: string;
 _id: string;
 title: string;
 description: string | null;
+authorId: string;
 author: IUser;
 }
 
@@ -180,14 +181,14 @@ cursor: string;
 }
 
 interface IMutation {
-UserAddPost: IUserAddPostPayload | null;
+UserCreatePost: IUserCreatePostPayload | null;
 UserChangePassword: IUserChangePasswordPayload | null;
 UserLoginWithEmail: IUserLoginWithEmailPayload | null;
 UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
 }
 
-interface IUserAddPostOnMutationArguments {
-input: IUserAddPostInput;
+interface IUserCreatePostOnMutationArguments {
+input: IUserCreatePostInput;
 }
 
 interface IUserChangePasswordOnMutationArguments {
@@ -202,14 +203,15 @@ interface IUserRegisterWithEmailOnMutationArguments {
 input: IUserRegisterWithEmailInput;
 }
 
-interface IUserAddPostInput {
+interface IUserCreatePostInput {
 title: string;
 descirption?: string | null;
 clientMutationId?: string | null;
 }
 
-interface IUserAddPostPayload {
+interface IUserCreatePostPayload {
 error: string | null;
+post: IPost | null;
 clientMutationId: string | null;
 }
 
