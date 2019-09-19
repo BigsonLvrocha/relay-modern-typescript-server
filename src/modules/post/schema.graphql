@@ -13,6 +13,7 @@ type Mutation {
 
 type Query {
   post(id: ID!): Post
+  feed(first: Int, after: String, last: Int, before: String): PostConnection
 }
 
 input UserCreatePostInput {
@@ -25,4 +26,50 @@ type UserCreatePostPayload {
   error: String
   post: Post
   clientMutationId: String
+}
+
+type PostConnection {
+  count: Int!
+  """
+  A count of the total number of objects in this connection, ignoring pagination.
+    This allows a client to fetch the first five objects by passing "5" as the
+    argument to "first", then fetch the total count so it could display "5 of 83",
+    for example.
+  """
+  totalCount: Int!
+
+  """
+  Offset from start
+  """
+  startCursorOffset: Int!
+
+  """
+  Offset till end
+  """
+  endCursorOffset: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfoExtended!
+
+  """
+  A list of edges.
+  """
+  edges: [PostEdge]!
+}
+
+"""
+An edge in a connection.
+"""
+type PostEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Post!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
 }

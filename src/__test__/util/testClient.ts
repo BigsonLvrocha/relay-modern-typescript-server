@@ -234,4 +234,52 @@ export class TestClient {
       }
     });
   }
+
+  async feed(
+    after?: string | undefined,
+    first?: number | undefined,
+    before?: string | undefined,
+    last?: number | undefined
+  ) {
+    const query = `
+    {
+      feed ${
+        after || first || before || last
+          ? `(
+        ${after ? `after: "${after}"` : ""}
+        ${first ? `first: ${first}` : ""}
+        ${before ? `before: "${before}"` : ""}
+        ${last ? `last: ${last}` : ""}
+      )
+      `
+          : ""
+      }  {
+        count
+        totalCount
+        startCursorOffset
+        endCursorOffset
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        edges {
+          node {
+            id
+            _id
+            description
+            title
+          }
+          cursor
+        }
+      }
+    }`;
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query
+      }
+    });
+  }
 }
