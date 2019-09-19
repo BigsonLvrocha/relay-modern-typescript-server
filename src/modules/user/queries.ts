@@ -120,12 +120,10 @@ export const usersResolver: Resolver = async (
     endCursor: lastEdge ? lastEdge.cursor : null,
     hasPreviousPage: startOffset > 0,
     hasNextPage: limitOffset + skip < total,
-    __typename: "PageInfoExtended"
     // hasPreviousPage: last !== null ? startOffset > lowerBound : false,
     // hasNextPage: first !== null ? endOffset < upperBound : false,
   };
   return {
-    __typename: "UserConnection",
     edges,
     count: edges.length,
     totalCount: total,

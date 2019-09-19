@@ -2,7 +2,6 @@ import { User } from "../models/User.model";
 import { idToGraphqlId } from "./graphqlId";
 
 export const UserToIUser = (user: User): GQL.IUser => ({
-  __typename: "User",
   active: user.active,
   name: user.name,
   email: user.email,
@@ -11,7 +10,6 @@ export const UserToIUser = (user: User): GQL.IUser => ({
 });
 
 export const UserToEdge = (user: User): GQL.IUserEdge => ({
-  __typename: "UserEdge",
   node: UserToIUser(user),
   cursor: string2Cursor(user.name, "user-name-")
 });
