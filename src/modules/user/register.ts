@@ -25,12 +25,10 @@ const registerResolver: Resolver = async (
     process.env.APP_SECRET || "secret"
   )) as string;
   const userAdded: GQL.IUserAddedPayload = {
-    __typename: "UserAddedPayload",
     userEdge: UserToEdge(user)
   };
   pubsub.publish(userAddedChannelName, { UserAdded: userAdded });
   return {
-    __typename: "UserRegisterWithEmailPayload",
     token,
     error: null,
     clientMutationId: clientMutationId as string | null

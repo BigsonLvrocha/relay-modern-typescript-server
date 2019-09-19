@@ -18,7 +18,6 @@ const loginResolver: Resolver = async (
   const user = (await UserModel.findOne({ where: { email } })) as User;
   if (!user) {
     return {
-      __typename: "UserLoginWithEmailPayload",
       token: null,
       error: invalidLogin,
       clientMutationId: clientMutationId || null
@@ -31,14 +30,12 @@ const loginResolver: Resolver = async (
       process.env.APP_SECRET || "secret"
     )) as string;
     return {
-      __typename: "UserLoginWithEmailPayload",
       token,
       error: null,
       clientMutationId: clientMutationId || null
     };
   }
   return {
-    __typename: "UserLoginWithEmailPayload",
     token: null,
     error: invalidLogin,
     clientMutationId: clientMutationId || null

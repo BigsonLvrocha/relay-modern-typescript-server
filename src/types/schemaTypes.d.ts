@@ -24,7 +24,7 @@ column: number;
  * The root of all... queries
  */
   interface IQuery {
-__typename: "Query";
+post: IPost | null;
 
 /**
  * Fetches an object given its ID
@@ -33,6 +33,10 @@ node: Node | null;
 me: IUser | null;
 user: IUser | null;
 users: IUserConnection | null;
+}
+
+interface IPostOnQueryArguments {
+id: string;
 }
 
 interface INodeOnQueryArguments {
@@ -55,16 +59,23 @@ last?: number | null;
 search?: string | null;
 }
 
+interface IPost {
+id: string;
+_id: string;
+title: string;
+description: string | null;
+author: IUser;
+}
+
 /**
  * An object with an ID
  */
-  type Node = IUser;
+  type Node = IPost | IUser;
 
 /**
  * An object with an ID
  */
   interface INode {
-__typename: "Node";
 
 /**
  * The id of the object.
@@ -76,7 +87,6 @@ id: string;
  * User data
  */
   interface IUser {
-__typename: "User";
 
 /**
  * The ID of an object
@@ -92,7 +102,6 @@ active: boolean | null;
  * A connection to a list of items.
  */
   interface IUserConnection {
-__typename: "UserConnection";
 
 /**
  * Number of items in this connection
@@ -132,7 +141,6 @@ edges: Array<IUserEdge | null>;
  * Information about pagination in a connection.
  */
   interface IPageInfoExtended {
-__typename: "PageInfoExtended";
 
 /**
  * When paginating forwards, are there more items?
@@ -159,7 +167,6 @@ endCursor: string | null;
  * An edge in a connection.
  */
   interface IUserEdge {
-__typename: "UserEdge";
 
 /**
  * The item at the end of the edge
@@ -173,10 +180,14 @@ cursor: string;
 }
 
 interface IMutation {
-__typename: "Mutation";
+UserAddPost: IUserAddPostPayload | null;
 UserChangePassword: IUserChangePasswordPayload | null;
 UserLoginWithEmail: IUserLoginWithEmailPayload | null;
 UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
+}
+
+interface IUserAddPostOnMutationArguments {
+input: IUserAddPostInput;
 }
 
 interface IUserChangePasswordOnMutationArguments {
@@ -191,6 +202,17 @@ interface IUserRegisterWithEmailOnMutationArguments {
 input: IUserRegisterWithEmailInput;
 }
 
+interface IUserAddPostInput {
+title: string;
+descirption?: string | null;
+clientMutationId?: string | null;
+}
+
+interface IUserAddPostPayload {
+error: string | null;
+clientMutationId: string | null;
+}
+
 interface IUserChangePasswordInput {
 oldPassword: string;
 
@@ -202,7 +224,6 @@ clientMutationId?: string | null;
 }
 
 interface IUserChangePasswordPayload {
-__typename: "UserChangePasswordPayload";
 error: string | null;
 me: IUser | null;
 clientMutationId: string | null;
@@ -215,7 +236,6 @@ clientMutationId?: string | null;
 }
 
 interface IUserLoginWithEmailPayload {
-__typename: "UserLoginWithEmailPayload";
 token: string | null;
 error: string | null;
 clientMutationId: string | null;
@@ -229,19 +249,16 @@ clientMutationId?: string | null;
 }
 
 interface IUserRegisterWithEmailPayload {
-__typename: "UserRegisterWithEmailPayload";
 token: string | null;
 error: string | null;
 clientMutationId: string | null;
 }
 
 interface ISubscription {
-__typename: "Subscription";
 UserAdded: IUserAddedPayload | null;
 }
 
 interface IUserAddedPayload {
-__typename: "UserAddedPayload";
 userEdge: IUserEdge | null;
 }
 }

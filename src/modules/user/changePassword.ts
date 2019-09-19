@@ -17,7 +17,6 @@ const changePasswordResolver: Resolver = async (
   const user = (await UserModel.findByPk(userId)) as User;
   if (!user) {
     return {
-      __typename: "UserChangePasswordPayload",
       clientMutationId: clientMutationId || null,
       me: null,
       error: invalidAuthentication
@@ -26,7 +25,6 @@ const changePasswordResolver: Resolver = async (
   const valid = await bcrypt.compare(oldPassword, user.password);
   if (!valid) {
     return {
-      __typename: "UserChangePasswordPayload",
       clientMutationId: clientMutationId || null,
       me: null,
       error: invalidAuthentication
@@ -35,7 +33,6 @@ const changePasswordResolver: Resolver = async (
   const newPassword = await bcrypt.hash(password, 10);
   await user.update({ password: newPassword });
   return {
-    __typename: "UserChangePasswordPayload",
     me: UserToIUser(user),
     error: null,
     clientMutationId: clientMutationId || null

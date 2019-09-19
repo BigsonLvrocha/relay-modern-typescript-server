@@ -23,6 +23,7 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@gql2ts/from-schema": "^1.10.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/bluebird": "^3.5.27",
     "@types/express": "^4.17.1",
@@ -51,7 +52,7 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "gen-schema-types": "gql2ts -o ./src/types/schemaTypes.d.ts ./src/modules/schema.graphql",
+    "gen-schema-types": "ts-node --files src/scripts/genSchemaTypes.ts",
     "start": "nodemon --files src/index.ts",
     "test": "NODE_ENV=test NODE_TS_FILES=true jest --forceExit --runInBand",
     "build": "echo builded"

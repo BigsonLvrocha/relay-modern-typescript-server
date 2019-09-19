@@ -8,9 +8,11 @@ describe("Sequelize plugin", () => {
   it("creates records", async () => {
     const email = faker.internet.email();
     const password = faker.internet.password();
+    const name = faker.internet.userName();
     const user = (await UserModel.create({
       email,
       password,
+      name,
       active: true
     })) as User;
     const user2 = (await UserModel.findOne({
@@ -24,9 +26,11 @@ describe("Sequelize plugin", () => {
   it("deletes records", async () => {
     const email = faker.internet.email();
     const password = faker.internet.password();
+    const name = faker.internet.userName();
     const user = (await UserModel.create({
       email,
       password,
+      name,
       active: true
     })) as User;
     await user.destroy();
