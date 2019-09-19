@@ -7,6 +7,11 @@ This graphql server supports:
 - registration
 - authentication
 - password change
+- user query by id
+- paginated user query with connection, ordered by name, ascending
+- post creation by user
+- post query by id
+- paginated post query with connection, ordered by creation date, descening
 
 ## How to use this server
 
