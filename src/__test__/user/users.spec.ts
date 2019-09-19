@@ -43,10 +43,11 @@ describe("Users query", () => {
 
   it("list last 10", async () => {
     const client = new TestClient(process.env.TEST_HOST as string);
+    const totalCount = await UserModel.count();
     const users = (await UserModel.findAll({
       order: [["name", "ASC"]],
       limit: 10,
-      offset: 10
+      offset: totalCount - 10
     })) as User[];
     const response = await client.users(undefined, undefined, undefined, 10);
     expect(response.data.users).not.toBeNull();
