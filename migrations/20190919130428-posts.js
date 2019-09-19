@@ -26,7 +26,9 @@ module.exports = {
           model: "users",
           key: "_id"
         },
-        allowNul: false
+        allowNul: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE"
       }
     });
   },
