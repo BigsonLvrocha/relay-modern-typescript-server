@@ -1,9 +1,9 @@
 import * as jwt from "jsonwebtoken";
-import { Resolver } from "../../types/graphql-utils";
-import { User } from "../../models/User.model";
+import { Resolver } from "../../../types/graphql-utils";
+import { User } from "../../../models/User.model";
 import * as tp from "typed-promisify";
-import { userAddedChannelName } from "../../util/constants";
-import { UserToEdge } from "../../util/typeMap";
+import { userAddedChannelName } from "../../../util/constants";
+import { UserToEdge } from "../../../util/typeMap";
 
 const sign = tp.promisify(jwt.sign);
 

@@ -1,10 +1,10 @@
-import { default as UserChangePassword } from "./changePassword";
-import { default as UserLoginWithEmail } from "./login";
-import { default as UserRegisterWithEmail } from "./register";
-import { userResolver as user, meResolver as me } from "./queries";
-import { usersResolver as users } from "./users";
+import { default as UserChangePassword } from "./resolvers/changePassword";
+import { default as UserLoginWithEmail } from "./resolvers/login";
+import { default as UserRegisterWithEmail } from "./resolvers/register";
+import { userResolver as user, meResolver as me } from "./resolvers/queries";
+import { usersResolver as users } from "./resolvers/users";
 import { ResolverMap } from "../../types/graphql-utils";
-import { userAddedResolver } from "./userAdded";
+import { userAddedResolver } from "./resolvers/userAdded";
 
 export const resolvers: ResolverMap = {
   Mutation: {

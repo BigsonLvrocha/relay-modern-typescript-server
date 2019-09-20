@@ -1,9 +1,9 @@
-import { Resolver } from "../../types/graphql-utils";
-import { applyMiddleware } from "../../util/applyMiddleware";
-import { authGraphqlMiddleware } from "../middleware/auth";
-import { User } from "../../models/User.model";
-import { UserToIUser } from "../../util/typeMap";
-import { graphqIdToId } from "../../util/graphqlId";
+import { Resolver } from "../../../types/graphql-utils";
+import { applyMiddleware } from "../../../util/applyMiddleware";
+import { authGraphqlMiddleware } from "../../middleware/auth";
+import { User } from "../../../models/User.model";
+import { UserToIUser } from "../../../util/typeMap";
+import { graphqIdToId } from "../../../util/graphqlId";
 
 export const userResolver: Resolver = async (
   _,
