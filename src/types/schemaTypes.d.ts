@@ -86,7 +86,7 @@ active: boolean | null;
 /**
  * An object with an ID
  */
-  type Node = IUser | IPost;
+  type Node = IUser | IPost | IComment;
 
 /**
  * An object with an ID
@@ -106,6 +106,61 @@ title: string;
 description: string | null;
 authorId: string;
 author: IUser;
+comments: IPostCommentConnection | null;
+}
+
+interface ICommentsOnPostArguments {
+first?: number | null;
+after?: string | null;
+last?: number | null;
+before?: string | null;
+}
+
+interface IPostCommentConnection {
+count: number;
+totalCount: number;
+startCursorOffset: number;
+endCursorOffset: number;
+pageInfo: IPageInfoExtended;
+edges: Array<IPostCommentEdge | null>;
+}
+
+/**
+ * Information about pagination in a connection.
+ */
+  interface IPageInfoExtended {
+
+/**
+ * When paginating forwards, are there more items?
+ */
+hasNextPage: boolean;
+
+/**
+ * When paginating backwards, are there more items?
+ */
+hasPreviousPage: boolean;
+
+/**
+ * When paginating backwards, the cursor to continue.
+ */
+startCursor: string | null;
+
+/**
+ * When paginating forwards, the cursor to continue.
+ */
+endCursor: string | null;
+}
+
+interface IPostCommentEdge {
+node: IComment | null;
+cursor: string | null;
+}
+
+interface IComment {
+_id: string;
+authorId: string;
+postId: string | null;
+comment: string;
 }
 
 interface IPostConnection {
@@ -138,32 +193,6 @@ pageInfo: IPageInfoExtended;
  * A list of edges.
  */
 edges: Array<IPostEdge | null>;
-}
-
-/**
- * Information about pagination in a connection.
- */
-  interface IPageInfoExtended {
-
-/**
- * When paginating forwards, are there more items?
- */
-hasNextPage: boolean;
-
-/**
- * When paginating backwards, are there more items?
- */
-hasPreviousPage: boolean;
-
-/**
- * When paginating backwards, the cursor to continue.
- */
-startCursor: string | null;
-
-/**
- * When paginating forwards, the cursor to continue.
- */
-endCursor: string | null;
 }
 
 /**
@@ -238,11 +267,16 @@ cursor: string;
 }
 
 interface IMutation {
+CreateComment: ICreateCommentPayload | null;
 UserCreatePost: IUserCreatePostPayload | null;
 EditPost: IEditPostPayload;
 UserChangePassword: IUserChangePasswordPayload | null;
 UserLoginWithEmail: IUserLoginWithEmailPayload | null;
 UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
+}
+
+interface ICreateCommentOnMutationArguments {
+input?: ICreateCommentInput | null;
 }
 
 interface IUserCreatePostOnMutationArguments {
@@ -263,6 +297,17 @@ input: IUserLoginWithEmailInput;
 
 interface IUserRegisterWithEmailOnMutationArguments {
 input: IUserRegisterWithEmailInput;
+}
+
+interface ICreateCommentInput {
+postId: string;
+comment: string;
+}
+
+interface ICreateCommentPayload {
+comment: IComment | null;
+clientMutationId: string | null;
+error: string | null;
 }
 
 interface IUserCreatePostInput {
