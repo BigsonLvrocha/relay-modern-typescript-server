@@ -24,7 +24,7 @@ column: number;
  * The root of all... queries
  */
   interface IQuery {
-randomUser: IRandomUserPayload;
+randomUser: IUser;
 post: IPost | null;
 feed: IPostConnection | null;
 
@@ -66,11 +66,6 @@ first?: number | null;
 before?: string | null;
 last?: number | null;
 search?: string | null;
-}
-
-interface IRandomUserPayload {
-user: IUser;
-token: string;
 }
 
 /**
@@ -244,6 +239,7 @@ cursor: string;
 
 interface IMutation {
 UserCreatePost: IUserCreatePostPayload | null;
+EditPost: IEditPostPayload;
 UserChangePassword: IUserChangePasswordPayload | null;
 UserLoginWithEmail: IUserLoginWithEmailPayload | null;
 UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
@@ -251,6 +247,10 @@ UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
 
 interface IUserCreatePostOnMutationArguments {
 input: IUserCreatePostInput;
+}
+
+interface IEditPostOnMutationArguments {
+input: IEditPostInput;
 }
 
 interface IUserChangePasswordOnMutationArguments {
@@ -274,6 +274,18 @@ clientMutationId?: string | null;
 interface IUserCreatePostPayload {
 error: string | null;
 post: IPost | null;
+clientMutationId: string | null;
+}
+
+interface IEditPostInput {
+title: string;
+id: string;
+clientMutationId?: string | null;
+}
+
+interface IEditPostPayload {
+post: IPost | null;
+error: string | null;
 clientMutationId: string | null;
 }
 

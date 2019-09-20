@@ -298,4 +298,25 @@ export class TestClient {
       }
     });
   }
+
+  async editPost(id: string, title: string, token: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: {
+        query: `mutation {
+          EditPost(input: {id: "${id}", title: "${title}"}) {
+            post {
+              _id
+              id
+              title
+              description
+            }
+          }
+        }`
+      }
+    });
+  }
 }

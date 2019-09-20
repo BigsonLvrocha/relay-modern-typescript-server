@@ -9,6 +9,7 @@ type Post implements Node {
 
 type Mutation {
   UserCreatePost(input: UserCreatePostInput!): UserCreatePostPayload
+  EditPost(input: EditPostInput!): EditPostPayload!
 }
 
 type Query {
@@ -72,4 +73,16 @@ type PostEdge {
   A cursor for use in pagination
   """
   cursor: String!
+}
+
+input EditPostInput {
+  title: String!
+  id: String!
+  clientMutationId: String
+}
+
+type EditPostPayload {
+  post: Post
+  error: String
+  clientMutationId: String
 }
