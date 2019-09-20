@@ -2,7 +2,7 @@ import { Resolver } from "../../../types/graphql-utils";
 import { ModelCtor } from "sequelize-typescript";
 import { User } from "../../../models/User.model";
 import { Op } from "sequelize";
-import { cursor2String, UserToEdge } from "../../../util/typeMap";
+import { cursor2UserName, user2Edge } from "../types/typeMap";
 import {
   parseFirstLast,
   calculateOffstetLimit,
@@ -18,7 +18,7 @@ export const cursor2Offset = (
   if (!cursor) {
     return defaultValue;
   }
-  const nameAfter = cursor2String(cursor, "user-name-");
+  const nameAfter = cursor2UserName(cursor);
   return UserModel.count({
     where: {
       name: {
@@ -69,7 +69,7 @@ export const usersResolver: Resolver = async (
     where,
     order: [["name", "ASC"]]
   })) as User[];
-  const edges = users.map(user => UserToEdge(user));
+  const edges = users.map(user => user2Edge(user));
   const firstEdge = edges[0];
   const lastEdge = edges[edges.length - 1];
   const pageInfo = getPageInfo(

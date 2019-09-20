@@ -1,7 +1,7 @@
 import { Resolver } from "../../types/graphql-utils";
 import { ModelCtor } from "sequelize";
 import { User } from "../../models/User.model";
-import { UserToIUser } from "../../util/typeMap";
+import { user2IUser } from "../../modules/user/types/typeMap";
 
 export const PostUser: Resolver = async (
   parent,
@@ -10,5 +10,5 @@ export const PostUser: Resolver = async (
 ): Promise<Partial<GQL.IUser>> => {
   const UserModel = sequelize.models.User as ModelCtor<User>;
   const user = (await UserModel.findByPk(parent.authorId)) as User;
-  return UserToIUser(user);
+  return user2IUser(user);
 };

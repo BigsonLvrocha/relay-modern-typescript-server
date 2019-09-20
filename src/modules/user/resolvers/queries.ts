@@ -2,7 +2,7 @@ import { Resolver } from "../../../types/graphql-utils";
 import { applyMiddleware } from "../../../util/applyMiddleware";
 import { authGraphqlMiddleware } from "../../middleware/auth";
 import { User } from "../../../models/User.model";
-import { UserToIUser } from "../../../util/typeMap";
+import { user2IUser } from "../../../modules/user/types/typeMap";
 import { graphqIdToId } from "../../../util/graphqlId";
 
 export const userResolver: Resolver = async (
@@ -15,7 +15,7 @@ export const userResolver: Resolver = async (
   if (!user) {
     return null;
   }
-  return UserToIUser(user);
+  return user2IUser(user);
 };
 
 export const meResolver: Resolver = applyMiddleware(
@@ -26,7 +26,7 @@ export const meResolver: Resolver = applyMiddleware(
     }
     const UserModel = sequelize.models.User;
     const me = (await UserModel.findByPk(userId)) as User;
-    return UserToIUser(me);
+    return user2IUser(me);
   },
   { throwError: false }
 );

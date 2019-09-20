@@ -45,3 +45,8 @@ export interface Node2ModelResolver<T extends Model, U extends GQL.INode> {
   cursorPrefix: string;
   model2Interface: model2Node<T, U>;
 }
+
+export type Node2ModelResolvers<
+  T extends Model,
+  U extends GQL.INode
+> = Node2ModelResolver<T, U>[];
