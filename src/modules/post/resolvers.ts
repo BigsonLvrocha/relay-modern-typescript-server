@@ -1,8 +1,8 @@
 import { ResolverMap } from "../../types/graphql-utils";
-import { post } from "./post";
-import { PostUser } from "./user";
-import { UserCreatePost } from "./userCreatePost";
-import { feed } from "./feed";
+import { post } from "./resolvers/post";
+import { PostUser } from "./resolvers/user";
+import { UserCreatePost } from "./resolvers/userCreatePost";
+import { feed } from "./resolvers/feed";
 
 export const resolvers: ResolverMap = {
   Mutation: {

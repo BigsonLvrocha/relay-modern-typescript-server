@@ -9,7 +9,9 @@ const options: SequelizeOptions = {
     process.env.NODE_ENV !== "test"
       ? process.env.DB_DATABASE || "relay_modern_development"
       : "relay_modern_test",
-  host: process.env.DB_HOSTNAME || "db",
+  host:
+    process.env.DB_HOSTNAME ||
+    (process.env.NODE_ENV === "test" ? "0.0.0.0" : "db"),
   port: Number.parseInt(process.env.DB_PORT || "5432", 10),
   dialect: (process.env.DB_DIALECT as Dialect) || "postgres",
   logging: process.env.NODE_ENV !== "test" ? console.log : false

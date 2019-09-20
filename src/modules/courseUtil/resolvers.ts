@@ -1,7 +1,7 @@
 import { ResolverMap } from "../../types/graphql-utils";
 import { ModelCtor } from "sequelize-typescript";
 import { User } from "../../models/User.model";
-import { UserToIUser } from "../../util/typeMap";
+import { user2IUser } from "../../modules/user/types/typeMap";
 import { Op } from "sequelize";
 
 export const resolvers: ResolverMap = {
@@ -11,7 +11,7 @@ export const resolvers: ResolverMap = {
       const user = (await UserModel.findOne({
         where: { name: { [Op.iLike]: "%a%" } }
       })) as User;
-      return UserToIUser(user);
+      return user2IUser(user);
     }
   }
 };

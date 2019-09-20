@@ -1,9 +1,9 @@
 import * as jwt from "jsonwebtoken";
-import { Resolver } from "../../types/graphql-utils";
-import { User } from "../../models/User.model";
+import { Resolver } from "../../../types/graphql-utils";
+import { User } from "../../../models/User.model";
 import * as tp from "typed-promisify";
-import { userAddedChannelName } from "../../util/constants";
-import { UserToEdge } from "../../util/typeMap";
+import { userAddedChannelName } from "../../../util/constants";
+import { user2Edge } from "../types/typeMap";
 
 const sign = tp.promisify(jwt.sign);
 
@@ -25,7 +25,7 @@ const registerResolver: Resolver = async (
     process.env.APP_SECRET || "secret"
   )) as string;
   const userAdded: GQL.IUserAddedPayload = {
-    userEdge: UserToEdge(user)
+    userEdge: user2Edge(user)
   };
   pubsub.publish(userAddedChannelName, { UserAdded: userAdded });
   return {

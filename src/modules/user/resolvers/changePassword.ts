@@ -1,10 +1,10 @@
-import { Resolver } from "../../types/graphql-utils";
+import { Resolver } from "../../../types/graphql-utils";
 import * as bcrypt from "bcryptjs";
-import { User } from "../../models/User.model";
-import { invalidAuthentication } from "../middleware/errorMessages";
-import { UserToIUser } from "../../util/typeMap";
-import { applyMiddleware } from "../../util/applyMiddleware";
-import { authGraphqlMiddleware } from "../middleware/auth";
+import { User } from "../../../models/User.model";
+import { invalidAuthentication } from "../../middleware/errorMessages";
+import { user2IUser } from "../../../modules/user/types/typeMap";
+import { applyMiddleware } from "../../../util/applyMiddleware";
+import { authGraphqlMiddleware } from "../../middleware/auth";
 
 const changePasswordResolver: Resolver = async (
   _,
@@ -33,7 +33,7 @@ const changePasswordResolver: Resolver = async (
   const newPassword = await bcrypt.hash(password, 10);
   await user.update({ password: newPassword });
   return {
-    me: UserToIUser(user),
+    me: user2IUser(user),
     error: null,
     clientMutationId: clientMutationId || null
   };

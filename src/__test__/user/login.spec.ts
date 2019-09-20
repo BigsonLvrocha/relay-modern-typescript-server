@@ -4,7 +4,7 @@ import * as faker from "faker";
 import { User } from "../../models/User.model";
 import * as jwt from "jsonwebtoken";
 import * as tp from "typed-promisify";
-import { invalidLogin } from "../../modules/user/errorMessages";
+import { invalidLogin } from "../../modules/user/types/errorMessages";
 
 const verify = tp.promisify(jwt.verify);
 
@@ -26,7 +26,7 @@ describe("login mutation", () => {
     expect(response.data.UserLoginWithEmail.token).not.toBeNull();
     const { userId } = (await verify(
       response.data.UserLoginWithEmail.token,
-      process.env.APP_SECRET as string
+      process.env.APP_SECRET || "secret"
     )) as any;
     expect(userId).toEqual(user._id);
   });

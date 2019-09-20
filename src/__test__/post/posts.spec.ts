@@ -5,7 +5,7 @@ import { User } from "../../models/User.model";
 import { ModelCtor } from "sequelize/types";
 import { Post } from "../../models/Post.model";
 import { range } from "lodash";
-import { post2Cursor } from "../../util/typeMap";
+import { post2Cursor } from "../../modules/post/types/typeMap";
 
 const UserModel = sequelize.models.User as ModelCtor<User>;
 const PostModel = sequelize.models.Post as ModelCtor<Post>;

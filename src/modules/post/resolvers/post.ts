@@ -1,8 +1,8 @@
-import { Resolver } from "../../types/graphql-utils";
+import { Resolver } from "../../../types/graphql-utils";
 import { ModelCtor } from "sequelize";
-import { Post } from "../../models/Post.model";
-import { graphqIdToId } from "../../util/graphqlId";
-import { Post2IPost } from "../../util/typeMap";
+import { Post } from "../../../models/Post.model";
+import { graphqIdToId } from "../../../util/graphqlId";
+import { post2IPost } from "../types/typeMap";
 
 export const post: Resolver = async (
   _,
@@ -15,5 +15,5 @@ export const post: Resolver = async (
   if (!postA) {
     return null;
   }
-  return Post2IPost(postA);
+  return post2IPost(postA);
 };

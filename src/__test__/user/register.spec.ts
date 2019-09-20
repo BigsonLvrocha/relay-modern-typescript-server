@@ -17,13 +17,14 @@ describe("user registration", () => {
     const response = await client.register(email, password, name);
     const user = (await UserModel.findOne({ where: { email } })) as User;
     expect(user.name).toEqual(name);
+    expect(response.error).toBeUndefined();
     expect(response).toHaveProperty("data");
     expect(response.data).toHaveProperty("UserRegisterWithEmail");
     expect(response.data.UserRegisterWithEmail.error).toBeNull();
     expect(response.data.UserRegisterWithEmail.token).not.toBeNull();
     const { userId } = (await verify(
       response.data.UserRegisterWithEmail.token,
-      process.env.APP_SECRET as string
+      process.env.APP_SECRET || "secret"
     )) as any;
     expect(userId).toEqual(user._id);
   });

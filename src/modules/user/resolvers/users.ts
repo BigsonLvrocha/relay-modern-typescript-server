@@ -1,13 +1,13 @@
-import { Resolver } from "../../types/graphql-utils";
+import { Resolver } from "../../../types/graphql-utils";
 import { ModelCtor } from "sequelize-typescript";
-import { User } from "../../models/User.model";
+import { User } from "../../../models/User.model";
 import { Op } from "sequelize";
-import { cursor2String, UserToEdge } from "../../util/typeMap";
+import { cursor2UserName, user2Edge } from "../types/typeMap";
 import {
   parseFirstLast,
   calculateOffstetLimit,
   getPageInfo
-} from "../../util/connectionUtils";
+} from "../../../util/connectionUtils";
 
 export const cursor2Offset = (
   cursor: string | null | undefined,
@@ -18,7 +18,7 @@ export const cursor2Offset = (
   if (!cursor) {
     return defaultValue;
   }
-  const nameAfter = cursor2String(cursor, "user-name-");
+  const nameAfter = cursor2UserName(cursor);
   return UserModel.count({
     where: {
       name: {
@@ -37,25 +37,23 @@ export const usersResolver: Resolver = async (
   const UserModel = sequelize.models.User as ModelCtor<User>;
   const { before, after, search } = args;
   const { first, last } = parseFirstLast(args.first, args.last);
-  let total = 0;
-  let where = {};
-  if (search) {
-    where = {
-      [Op.or]: [
-        {
-          name: {
-            [Op.iLike]: `%${search}%`
+  const where = search
+    ? {
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `%${search}%`
+            }
+          },
+          {
+            email: {
+              [Op.iLike]: `%${search}%`
+            }
           }
-        },
-        {
-          email: {
-            [Op.iLike]: `%${search}%`
-          }
-        }
-      ]
-    };
-  }
-  total = await UserModel.count({ where });
+        ]
+      }
+    : {};
+  const total = await UserModel.count({ where });
   const afterOffset = await cursor2Offset(after, -1, where, UserModel);
   const beforeOffset = await cursor2Offset(before, total, where, UserModel);
   const {
@@ -71,7 +69,7 @@ export const usersResolver: Resolver = async (
     where,
     order: [["name", "ASC"]]
   })) as User[];
-  const edges = users.map(user => UserToEdge(user));
+  const edges = users.map(user => user2Edge(user));
   const firstEdge = edges[0];
   const lastEdge = edges[edges.length - 1];
   const pageInfo = getPageInfo(

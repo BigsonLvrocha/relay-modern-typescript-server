@@ -2,7 +2,7 @@ import { sequelize } from "../../services/sequelize";
 import { TestClient } from "../util/testClient";
 import * as faker from "faker";
 import { User } from "../../models/User.model";
-import { invalidLogin } from "../../modules/user/errorMessages";
+import { invalidLogin } from "../../modules/user/types/errorMessages";
 
 describe("change password", () => {
   it("changes password", async () => {

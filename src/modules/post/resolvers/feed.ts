@@ -1,12 +1,12 @@
-import { Resolver } from "../../types/graphql-utils";
+import { Resolver } from "../../../types/graphql-utils";
 import { ModelCtor, Op } from "sequelize";
-import { Post } from "../../models/Post.model";
-import { Post2Edge, cursor2Post } from "../../util/typeMap";
+import { Post } from "../../../models/Post.model";
+import { post2Edge, cursor2Post } from "../types/typeMap";
 import {
   parseFirstLast,
   calculateOffstetLimit,
   getPageInfo
-} from "../../util/connectionUtils";
+} from "../../../util/connectionUtils";
 
 const cursor2OffsetWithDefault = async (
   after: string | null | undefined,
@@ -67,7 +67,7 @@ export const feed: Resolver = async (
     offset: skip,
     order: [["createdAt", "DESC"], ["authorId", "ASC"]]
   })) as Post[];
-  const edges = posts.map(post => Post2Edge(post));
+  const edges = posts.map(post => post2Edge(post));
   const firstEdge = edges[0];
   const lastEdge = edges[edges.length - 1];
   const pageInfo = getPageInfo(
