@@ -10,7 +10,7 @@
     "username": "postgres",
     "password": null,
     "database": "relay_modern_test",
-    "host": "0.0.0.0",
+    "host": "db",
     "dialect": "postgres"
   }
 }
