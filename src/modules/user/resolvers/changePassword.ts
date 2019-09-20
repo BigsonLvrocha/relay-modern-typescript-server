@@ -12,7 +12,7 @@ const changePasswordResolver: Resolver = async (
     input: { clientMutationId, oldPassword, password }
   }: GQL.IUserChangePasswordOnMutationArguments,
   { sequelize, userId }
-): Promise<GQL.IUserChangePasswordPayload> => {
+) => {
   const UserModel = sequelize.models.User;
   const user = (await UserModel.findByPk(userId)) as User;
   if (!user) {
