@@ -1,7 +1,7 @@
-import { Resolver } from "../../types/graphql-utils";
-import { invalidLogin } from "./errorMessages";
+import { Resolver } from "../../../types/graphql-utils";
+import { invalidLogin } from "../types/errorMessages";
 import * as bcrypt from "bcryptjs";
-import { User } from "../../models/User.model";
+import { User } from "../../../models/User.model";
 import * as jwt from "jsonwebtoken";
 import * as tp from "typed-promisify";
 

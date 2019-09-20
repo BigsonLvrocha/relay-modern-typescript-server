@@ -4,7 +4,7 @@ import * as faker from "faker";
 import { User } from "../../models/User.model";
 import * as jwt from "jsonwebtoken";
 import * as tp from "typed-promisify";
-import { invalidLogin } from "../../modules/user/errorMessages";
+import { invalidLogin } from "../../modules/user/types/errorMessages";
 
 const verify = tp.promisify(jwt.verify);
 
