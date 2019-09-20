@@ -1,9 +1,9 @@
-import { Resolver } from "../../types/graphql-utils";
-import { applyMiddleware } from "../../util/applyMiddleware";
-import { authGraphqlMiddleware } from "../middleware/auth";
+import { Resolver } from "../../../types/graphql-utils";
+import { applyMiddleware } from "../../../util/applyMiddleware";
+import { authGraphqlMiddleware } from "../../middleware/auth";
 import { ModelCtor } from "sequelize";
-import { Post } from "../../models/Post.model";
-import { Post2IPost } from "../../util/typeMap";
+import { Post } from "../../../models/Post.model";
+import { post2IPost } from "../types/typeMap";
 
 export const UserCreatePost: Resolver = applyMiddleware(
   authGraphqlMiddleware,
@@ -22,7 +22,7 @@ export const UserCreatePost: Resolver = applyMiddleware(
     })) as Post;
     return {
       error: null,
-      post: Post2IPost(post),
+      post: post2IPost(post),
       clientMutationId: clientMutationId || null
     };
   }

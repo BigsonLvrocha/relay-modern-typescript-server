@@ -1,7 +1,7 @@
-import { Resolver } from "../../types/graphql-utils";
+import { Resolver } from "../../../types/graphql-utils";
 import { ModelCtor } from "sequelize";
-import { User } from "../../models/User.model";
-import { user2IUser } from "../../modules/user/types/typeMap";
+import { User } from "../../../models/User.model";
+import { user2IUser } from "../../user/types/typeMap";
 
 export const PostUser: Resolver = async (
   parent,
