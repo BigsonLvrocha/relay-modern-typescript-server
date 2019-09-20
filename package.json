@@ -56,6 +56,7 @@
     "start": "nodemon --files src/index.ts",
     "test": "NODE_ENV=test NODE_TS_FILES=true jest --forceExit --runInBand",
     "build": "echo builded",
-    "gen-schema-file": "ts-node --files src/scripts/genSchemaFile.ts"
+    "gen-schema-file": "ts-node --files src/scripts/genSchemaFile.ts",
+    "populate-db": "ts-node --files src/scripts/populateDB.ts"
   }
 }

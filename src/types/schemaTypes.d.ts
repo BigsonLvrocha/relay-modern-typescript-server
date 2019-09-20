@@ -24,6 +24,7 @@ column: number;
  * The root of all... queries
  */
   interface IQuery {
+randomUser: IRandomUserPayload;
 post: IPost | null;
 feed: IPostConnection | null;
 
@@ -67,29 +68,9 @@ last?: number | null;
 search?: string | null;
 }
 
-interface IPost {
-id: string;
-_id: string;
-title: string;
-description: string | null;
-authorId: string;
-author: IUser;
-}
-
-/**
- * An object with an ID
- */
-  type Node = IPost | IUser;
-
-/**
- * An object with an ID
- */
-  interface INode {
-
-/**
- * The id of the object.
- */
-id: string;
+interface IRandomUserPayload {
+user: IUser;
+token: string;
 }
 
 /**
@@ -105,6 +86,31 @@ _id: string | null;
 name: string | null;
 email: string | null;
 active: boolean | null;
+}
+
+/**
+ * An object with an ID
+ */
+  type Node = IUser | IPost;
+
+/**
+ * An object with an ID
+ */
+  interface INode {
+
+/**
+ * The id of the object.
+ */
+id: string;
+}
+
+interface IPost {
+id: string;
+_id: string;
+title: string;
+description: string | null;
+authorId: string;
+author: IUser;
 }
 
 interface IPostConnection {
