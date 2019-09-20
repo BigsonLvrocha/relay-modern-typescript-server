@@ -55,6 +55,7 @@
     "gen-schema-types": "ts-node --files src/scripts/genSchemaTypes.ts",
     "start": "nodemon --files src/index.ts",
     "test": "NODE_ENV=test NODE_TS_FILES=true jest --forceExit --runInBand",
-    "build": "echo builded"
+    "build": "echo builded",
+    "gen-schema-file": "ts-node --files src/scripts/genSchemaFile.ts"
   }
 }

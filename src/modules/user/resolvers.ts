@@ -1,11 +1,8 @@
 import { default as UserChangePassword } from "./changePassword";
 import { default as UserLoginWithEmail } from "./login";
 import { default as UserRegisterWithEmail } from "./register";
-import {
-  userResolver as user,
-  usersResolver as users,
-  meResolver as me
-} from "./queries";
+import { userResolver as user, meResolver as me } from "./queries";
+import { usersResolver as users } from "./users";
 import { ResolverMap } from "../../types/graphql-utils";
 import { userAddedResolver } from "./userAdded";
 

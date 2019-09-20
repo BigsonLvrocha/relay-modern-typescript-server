@@ -1,5 +1,5 @@
 import { Resolver } from "../../types/graphql-utils";
-import { ModelCtor } from "sequelize/types";
+import { ModelCtor } from "sequelize";
 import { User } from "../../models/User.model";
 import { UserToIUser } from "../../util/typeMap";
 
