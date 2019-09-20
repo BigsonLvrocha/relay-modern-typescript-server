@@ -1,4 +1,5 @@
 type Comment implements Node {
+  id: ID!
   _id: String!
   authorId: String!
   postId: String
