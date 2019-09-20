@@ -5,6 +5,12 @@ type Post implements Node {
   description: String
   authorId: String!
   author: User!
+  comments(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): PostCommentConnection
 }
 
 type Mutation {
