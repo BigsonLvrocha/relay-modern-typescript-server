@@ -8,7 +8,7 @@ describe("me query", () => {
     const client = new TestClient(process.env.TEST_HOST as string);
     const response = await client.me("aoçsdhfçqeori");
     expect(response.data.me).toBeNull();
-    expect(response.error).not.toBeNull();
+    expect(response.errors).not.toBeNull();
   });
 
   it("returns me on authenticated", async () => {
