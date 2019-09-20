@@ -17,7 +17,7 @@ describe("user registration", () => {
     const response = await client.register(email, password, name);
     const user = (await UserModel.findOne({ where: { email } })) as User;
     expect(user.name).toEqual(name);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response).toHaveProperty("data");
     expect(response.data).toHaveProperty("UserRegisterWithEmail");
     expect(response.data.UserRegisterWithEmail.error).toBeNull();

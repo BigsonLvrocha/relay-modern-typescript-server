@@ -33,7 +33,7 @@ export const usersResolver: Resolver = async (
   _,
   args: GQL.IUsersOnQueryArguments,
   { sequelize }
-): Promise<GQL.IUserConnection | null> => {
+) => {
   const UserModel = sequelize.models.User as ModelCtor<User>;
   const { before, after, search } = args;
   const { first, last } = parseFirstLast(args.first, args.last);

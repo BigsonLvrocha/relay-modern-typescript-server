@@ -13,7 +13,7 @@ const registerResolver: Resolver = async (
     input: { email, name, password, clientMutationId }
   }: GQL.IUserRegisterWithEmailOnMutationArguments,
   { sequelize, pubsub }
-): Promise<GQL.IUserRegisterWithEmailPayload> => {
+) => {
   const UserModel = sequelize.models.User;
   const user = (await UserModel.create({
     email,
@@ -24,7 +24,7 @@ const registerResolver: Resolver = async (
     { userId: user._id },
     process.env.APP_SECRET || "secret"
   )) as string;
-  const userAdded: GQL.IUserAddedPayload = {
+  const userAdded = {
     userEdge: user2Edge(user)
   };
   pubsub.publish(userAddedChannelName, { UserAdded: userAdded });

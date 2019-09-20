@@ -9,7 +9,7 @@ export const userResolver: Resolver = async (
   _,
   { id: graphId }: GQL.IUserOnQueryArguments,
   { sequelize }
-): Promise<GQL.IUser | null> => {
+) => {
   const id = graphqIdToId(graphId, "user");
   const user = (await sequelize.models.User.findByPk(id)) as User;
   if (!user) {
@@ -20,7 +20,7 @@ export const userResolver: Resolver = async (
 
 export const meResolver: Resolver = applyMiddleware(
   authGraphqlMiddleware,
-  async (_, __, { userId, sequelize }): Promise<GQL.IUser | null> => {
+  async (_, __, { userId, sequelize }) => {
     if (!userId) {
       return null;
     }
