@@ -26,7 +26,7 @@ describe("login mutation", () => {
     expect(response.data.UserLoginWithEmail.token).not.toBeNull();
     const { userId } = (await verify(
       response.data.UserLoginWithEmail.token,
-      process.env.APP_SECRET as string
+      process.env.APP_SECRET || "secret"
     )) as any;
     expect(userId).toEqual(user._id);
   });
