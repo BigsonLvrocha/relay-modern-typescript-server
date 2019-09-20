@@ -28,7 +28,7 @@ input CreateCommentInput {
   comment: String!
 }
 
-type CreatecommentPayload {
+type CreateCommentPayload {
   comment: Comment
   clientMutationId: String
   error: String
