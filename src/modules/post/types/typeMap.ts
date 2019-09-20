@@ -38,7 +38,6 @@ export const cursor2Post = (cursor: string) => {
 };
 
 export const PostNode2ModelResolver: Node2ModelResolver<Post, GQL.IPost> = {
-  cursorPrefix,
   idPrefix,
   model2Interface: post2IPost,
   modelName,
