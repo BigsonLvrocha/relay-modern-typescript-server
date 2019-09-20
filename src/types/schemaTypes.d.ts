@@ -157,6 +157,7 @@ cursor: string | null;
 }
 
 interface IComment {
+id: string;
 _id: string;
 authorId: string;
 postId: string | null;
