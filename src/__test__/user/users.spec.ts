@@ -23,7 +23,7 @@ describe("Users query", () => {
   it("lists first 10 on default", async () => {
     const client = new TestClient(process.env.TEST_HOST as string);
     const response = await client.users();
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.users).not.toBeNull();
     expect(response.data.users.edges).toHaveLength(10);
   });
@@ -36,7 +36,7 @@ describe("Users query", () => {
       offset: 0
     })) as User[];
     const response = await client.users(undefined, 5);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.users).not.toBeNull();
     expect(response.data.users.edges).toHaveLength(5);
     expect(response.data.users.edges[0].node._id).toEqual(users[0]._id);
@@ -52,7 +52,7 @@ describe("Users query", () => {
       offset: totalCount - 10
     })) as User[];
     const response = await client.users(undefined, undefined, undefined, 10);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.users).not.toBeNull();
     expect(response.data.users.edges).toHaveLength(10);
     expect(response.data.users.edges[0].node._id).toEqual(users[0]._id);
@@ -68,7 +68,7 @@ describe("Users query", () => {
     })) as User[];
     const afterCursor = string2Cursor(users[1].name, "user-name-");
     const response = await client.users(afterCursor);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.users).not.toBeNull();
     expect(response.data.users.edges).toHaveLength(10);
     expect(response.data.users.edges[0].node._id).toEqual(users[2]._id);
@@ -84,7 +84,7 @@ describe("Users query", () => {
     })) as User[];
     const beforeCursor = string2Cursor(users[11].name, "user-name-");
     const response = await client.users(undefined, undefined, beforeCursor, 10);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.users).not.toBeNull();
     expect(response.data.users.edges).toHaveLength(10);
     expect(response.data.users.edges[0].node._id).toEqual(users[1]._id);
@@ -100,7 +100,7 @@ describe("Users query", () => {
     const afterCursor = string2Cursor(users[0].name, "user-name-");
     const beforeCursor = string2Cursor(users[9].name, "user-name-");
     const response = await client.users(afterCursor, 4, beforeCursor, 3);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.users).not.toBeNull();
     expect(response.data.users.edges).toHaveLength(3);
     expect(response.data.users.edges[0].node._id).toEqual(users[2]._id);

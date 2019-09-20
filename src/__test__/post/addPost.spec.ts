@@ -20,7 +20,7 @@ describe("add post mutation", () => {
       }
     } = await client.register(email, password, name);
     const response = await client.UserCreatePost(title, description, token);
-    expect(response.error).toBeUndefined();
+    expect(response.errors).toBeUndefined();
     expect(response.data.UserCreatePost).not.toBeNull();
     expect(response.data.UserCreatePost.post).not.toBeNull();
     const post = (await PostModel.findByPk(
