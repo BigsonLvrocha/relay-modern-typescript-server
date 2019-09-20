@@ -61,3 +61,6 @@ typings/
 .next
 
 .vscode
+
+#generated file
+mainSchema.graphql
