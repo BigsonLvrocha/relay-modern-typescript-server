@@ -20,7 +20,7 @@ type PostCommentEdge {
 }
 
 type Mutation {
-  CreateComment(input: CreateCommentInput): CreateCommentPayload
+  CreateComment(input: CreateCommentInput!): CreateCommentPayload
 }
 
 input CreateCommentInput {

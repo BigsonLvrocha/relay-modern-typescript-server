@@ -276,7 +276,7 @@ UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
 }
 
 interface ICreateCommentOnMutationArguments {
-input?: ICreateCommentInput | null;
+input: ICreateCommentInput;
 }
 
 interface IUserCreatePostOnMutationArguments {
