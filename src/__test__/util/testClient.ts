@@ -282,4 +282,20 @@ export class TestClient {
       }
     });
   }
+
+  async node(id: string, fields?: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query: `
+          {
+            node(id: "${id}") {
+              id
+              ${fields}
+            }
+          }
+        `
+      }
+    });
+  }
 }
