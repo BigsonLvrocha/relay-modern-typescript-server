@@ -104,6 +104,7 @@ describe("post query", () => {
     })) as Post[];
     const beforeCursor = post2Cursor(posts[11]);
     const response = await client.feed(undefined, undefined, beforeCursor, 10);
+    expect(response.errors).toBeUndefined();
     expect(response.data.feed).not.toBeNull();
     expect(response.data.feed.edges).toHaveLength(10);
     expect(response.data.feed.edges[0].node._id).toEqual(posts[1]._id);
@@ -120,6 +121,7 @@ describe("post query", () => {
     const afterCursor = post2Cursor(posts[0]);
     const beforeCursor = post2Cursor(posts[9]);
     const response = await client.feed(afterCursor, 4, beforeCursor, 3);
+    expect(response.errors).toBeUndefined();
     expect(response.data.feed).not.toBeNull();
     expect(response.data.feed.edges).toHaveLength(3);
     expect(response.data.feed.edges[0].node._id).toEqual(posts[2]._id);

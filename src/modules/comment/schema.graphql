@@ -1,0 +1,39 @@
+type Comment implements Node {
+  id: ID!
+  _id: String!
+  authorId: String!
+  postId: String
+  comment: String!
+  author: User!
+  post: Post!
+}
+
+type PostCommentConnection {
+  count: Int!
+  totalCount: Int!
+  startCursorOffset: Int!
+  endCursorOffset: Int!
+  pageInfo: PageInfoExtended!
+  edges: [PostCommentEdge]!
+}
+
+type PostCommentEdge {
+  node: Comment
+  cursor: String
+}
+
+type Mutation {
+  CreateComment(input: CreateCommentInput!): CreateCommentPayload
+}
+
+input CreateCommentInput {
+  postId: String!
+  comment: String!
+  clientMutationId: String
+}
+
+type CreateCommentPayload {
+  comment: Comment
+  clientMutationId: String
+  error: String
+}

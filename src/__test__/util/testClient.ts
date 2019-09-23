@@ -298,4 +298,119 @@ export class TestClient {
       }
     });
   }
+
+  async editPost(id: string, title: string, token: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: {
+        query: `mutation {
+          EditPost(input: {id: "${id}", title: "${title}"}) {
+            post {
+              _id
+              id
+              title
+              description
+            }
+          }
+        }`
+      }
+    });
+  }
+
+  async createComment(comment: string, token: string, postId: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: {
+        query: `mutation {
+          CreateComment(input: {
+            postId: "${postId}"
+            comment: "${comment}"
+          }) {
+            comment {
+              id
+              _id
+              comment
+              post {
+                id
+                _id
+                title
+                description
+                author {
+                  id
+                  _id
+                  name
+                  email
+                }
+              }
+              author {
+                id
+                _id
+                name
+                email
+              }
+            }
+          }
+        }`
+      }
+    });
+  }
+  async postWithComments(
+    id: string,
+    after?: string | undefined,
+    first?: number | undefined,
+    before?: string | undefined,
+    last?: number | undefined
+  ) {
+    const query = `{
+      post(id: "${id}") {
+        _id
+        id
+        description
+        title
+        author {
+          id
+          _id
+          name
+          email
+        }
+        comments ${
+          after || first || before || last
+            ? `(
+          ${after ? `after: "${after}"` : ""}
+          ${first ? `first: ${first}` : ""}
+          ${before ? `before: "${before}"` : ""}
+          ${last ? `last: ${last}` : ""}
+        )
+        `
+            : ""
+        } {
+          edges {
+            node {
+              _id
+              comment
+              id
+              author {
+                id
+                _id
+                name
+                email
+              }
+            }
+          }
+        }
+      }
+    }`;
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query
+      }
+    });
+  }
 }

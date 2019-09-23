@@ -24,7 +24,7 @@ column: number;
  * The root of all... queries
  */
   interface IQuery {
-randomUser: IRandomUserPayload;
+randomUser: IUser;
 post: IPost | null;
 feed: IPostConnection | null;
 
@@ -68,11 +68,6 @@ last?: number | null;
 search?: string | null;
 }
 
-interface IRandomUserPayload {
-user: IUser;
-token: string;
-}
-
 /**
  * User data
  */
@@ -91,7 +86,7 @@ active: boolean | null;
 /**
  * An object with an ID
  */
-  type Node = IUser | IPost;
+  type Node = IUser | IPost | IComment;
 
 /**
  * An object with an ID
@@ -111,6 +106,64 @@ title: string;
 description: string | null;
 authorId: string;
 author: IUser;
+comments: IPostCommentConnection | null;
+}
+
+interface ICommentsOnPostArguments {
+first?: number | null;
+after?: string | null;
+last?: number | null;
+before?: string | null;
+}
+
+interface IPostCommentConnection {
+count: number;
+totalCount: number;
+startCursorOffset: number;
+endCursorOffset: number;
+pageInfo: IPageInfoExtended;
+edges: Array<IPostCommentEdge | null>;
+}
+
+/**
+ * Information about pagination in a connection.
+ */
+  interface IPageInfoExtended {
+
+/**
+ * When paginating forwards, are there more items?
+ */
+hasNextPage: boolean;
+
+/**
+ * When paginating backwards, are there more items?
+ */
+hasPreviousPage: boolean;
+
+/**
+ * When paginating backwards, the cursor to continue.
+ */
+startCursor: string | null;
+
+/**
+ * When paginating forwards, the cursor to continue.
+ */
+endCursor: string | null;
+}
+
+interface IPostCommentEdge {
+node: IComment | null;
+cursor: string | null;
+}
+
+interface IComment {
+id: string;
+_id: string;
+authorId: string;
+postId: string | null;
+comment: string;
+author: IUser;
+post: IPost;
 }
 
 interface IPostConnection {
@@ -143,32 +196,6 @@ pageInfo: IPageInfoExtended;
  * A list of edges.
  */
 edges: Array<IPostEdge | null>;
-}
-
-/**
- * Information about pagination in a connection.
- */
-  interface IPageInfoExtended {
-
-/**
- * When paginating forwards, are there more items?
- */
-hasNextPage: boolean;
-
-/**
- * When paginating backwards, are there more items?
- */
-hasPreviousPage: boolean;
-
-/**
- * When paginating backwards, the cursor to continue.
- */
-startCursor: string | null;
-
-/**
- * When paginating forwards, the cursor to continue.
- */
-endCursor: string | null;
 }
 
 /**
@@ -243,14 +270,24 @@ cursor: string;
 }
 
 interface IMutation {
+CreateComment: ICreateCommentPayload | null;
 UserCreatePost: IUserCreatePostPayload | null;
+EditPost: IEditPostPayload;
 UserChangePassword: IUserChangePasswordPayload | null;
 UserLoginWithEmail: IUserLoginWithEmailPayload | null;
 UserRegisterWithEmail: IUserRegisterWithEmailPayload | null;
 }
 
+interface ICreateCommentOnMutationArguments {
+input: ICreateCommentInput;
+}
+
 interface IUserCreatePostOnMutationArguments {
 input: IUserCreatePostInput;
+}
+
+interface IEditPostOnMutationArguments {
+input: IEditPostInput;
 }
 
 interface IUserChangePasswordOnMutationArguments {
@@ -265,6 +302,18 @@ interface IUserRegisterWithEmailOnMutationArguments {
 input: IUserRegisterWithEmailInput;
 }
 
+interface ICreateCommentInput {
+postId: string;
+comment: string;
+clientMutationId?: string | null;
+}
+
+interface ICreateCommentPayload {
+comment: IComment | null;
+clientMutationId: string | null;
+error: string | null;
+}
+
 interface IUserCreatePostInput {
 title: string;
 description?: string | null;
@@ -274,6 +323,18 @@ clientMutationId?: string | null;
 interface IUserCreatePostPayload {
 error: string | null;
 post: IPost | null;
+clientMutationId: string | null;
+}
+
+interface IEditPostInput {
+title: string;
+id: string;
+clientMutationId?: string | null;
+}
+
+interface IEditPostPayload {
+post: IPost | null;
+error: string | null;
 clientMutationId: string | null;
 }
 

@@ -4,10 +4,12 @@ import {
   Model,
   BeforeCreate,
   BelongsTo,
-  ForeignKey
+  ForeignKey,
+  HasMany
 } from "sequelize-typescript";
 import * as uuid from "uuid/v4";
 import { User } from "./User.model";
+import { Comment } from "./Comment.model";
 
 @Table({
   tableName: "posts"
@@ -31,4 +33,6 @@ export class Post extends Model<Post> {
 
   @BelongsTo(() => User)
   author: User;
+
+  @HasMany(() => Comment) comments: Comment[];
 }

@@ -31,7 +31,6 @@ export const cursor2UserName = (cursor: string) =>
 
 export const UserNode2ModelResolver: Node2ModelResolver<User, GQL.IUser> = {
   idPrefix,
-  cursorPrefix,
   model2Interface: user2IUser,
   modelName,
   resolveType
