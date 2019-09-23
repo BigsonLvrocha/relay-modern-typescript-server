@@ -1,6 +1,7 @@
 import { model2Node, Node2ModelResolver } from "../../../types/graphql-utils";
 import { Comment } from "../../../models/Comment.model";
 import { string2Cursor, cursor2String } from "../../../util/typeMap";
+import { idToGraphqlId } from "../../../util/graphqlId";
 
 export const idPrefix = "comment";
 export const postCommentCursorPrefix = "post-comment-post-user-createdAt-";
@@ -8,6 +9,7 @@ export const modelName = "Comment";
 export const resolveType = "Comment";
 
 export const comment2IComment: model2Node<Comment, GQL.IComment> = comment => ({
+  id: idToGraphqlId(comment._id, idPrefix),
   _id: comment._id,
   comment: comment.comment,
   postId: comment.postId,
