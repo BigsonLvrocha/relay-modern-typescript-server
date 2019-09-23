@@ -28,7 +28,7 @@ module.exports = {
         onUpdate: "CASCADE"
       },
       comment: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false
       },
       createdAt: {
