@@ -4,7 +4,7 @@ import { string2Cursor, cursor2String } from "../../../util/typeMap";
 import { idToGraphqlId } from "../../../util/graphqlId";
 
 export const idPrefix = "comment";
-export const postCommentCursorPrefix = "post-comment-post-user-createdAt-";
+export const postCommentCursorPrefix = "post-comment-user-createdAt-";
 export const modelName = "Comment";
 export const resolveType = "Comment";
 
