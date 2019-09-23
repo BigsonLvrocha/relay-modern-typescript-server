@@ -360,4 +360,57 @@ export class TestClient {
       }
     });
   }
+  async postWithComments(
+    id: string,
+    after?: string | undefined,
+    first?: number | undefined,
+    before?: string | undefined,
+    last?: number | undefined
+  ) {
+    const query = `{
+      post(id: "${id}") {
+        _id
+        id
+        description
+        title
+        author {
+          id
+          _id
+          name
+          email
+        }
+        comments ${
+          after || first || before || last
+            ? `(
+          ${after ? `after: "${after}"` : ""}
+          ${first ? `first: ${first}` : ""}
+          ${before ? `before: "${before}"` : ""}
+          ${last ? `last: ${last}` : ""}
+        )
+        `
+            : ""
+        } {
+          edges {
+            node {
+              _id
+              comment
+              id
+              author {
+                id
+                _id
+                name
+                email
+              }
+            }
+          }
+        }
+      }
+    }`;
+    return rp.post(this.url, {
+      ...this.options,
+      body: {
+        query
+      }
+    });
+  }
 }
