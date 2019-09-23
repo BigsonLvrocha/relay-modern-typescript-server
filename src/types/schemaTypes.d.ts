@@ -162,6 +162,8 @@ _id: string;
 authorId: string;
 postId: string | null;
 comment: string;
+author: IUser;
+post: IPost;
 }
 
 interface IPostConnection {
@@ -303,6 +305,7 @@ input: IUserRegisterWithEmailInput;
 interface ICreateCommentInput {
 postId: string;
 comment: string;
+clientMutationId?: string | null;
 }
 
 interface ICreateCommentPayload {
