@@ -319,4 +319,45 @@ export class TestClient {
       }
     });
   }
+
+  async createComment(comment: string, token: string, postId: string) {
+    return rp.post(this.url, {
+      ...this.options,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: {
+        query: `mutation {
+          CreateComment(input: {
+            postId: "${postId}"
+            comment: "${comment}"
+          }) {
+            comment {
+              id
+              _id
+              comment
+              post {
+                id
+                _id
+                title
+                description
+                author {
+                  id
+                  _id
+                  name
+                  email
+                }
+              }
+              author {
+                id
+                _id
+                name
+                email
+              }
+            }
+          }
+        }`
+      }
+    });
+  }
 }
